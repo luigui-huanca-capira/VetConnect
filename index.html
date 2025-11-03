@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetConnect - Telemedicina Veterinaria con IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <!-- Imagen de logo (coloca tu archivo en assets/logo.png). Si no existe, se oculta y se mantiene el SVG como fallback -->
+                <img id="brandLogo" class="brand-logo" src="assets/logo.png" alt="VetConnect Logo" onerror="this.style.display='none'">
+
+                <div>
+                    <h1>VetConnect</h1>
+                    <p class="tagline">Inteligencia Artificial para el Cuidado Animal</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#registro" onclick="showSection('registro')">Registro</a>
+                <a href="#diagnostico" onclick="showSection('diagnostico')">Chat IA</a>
+                <a href="#cuenta" onclick="showSection('cuenta')">Mi Cuenta</a>
+                <a href="#mascota" onclick="showSection('mascota')">Mi Mascota</a>
+                <a href="#suscripcion" onclick="showSection('suscripcion')">Suscripción</a>
+                <a href="#servicios" onclick="showSection('servicios')">Servicios</a>
+                <a href="#contacto" onclick="showSection('contacto')">Contacto</a>
+            </nav>
+            <button class="mobile-toggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Registro -->
+    <section id="registro" class="section registro-section">
+        <div class="container">
+            <h2 class="section-title">📝 Registro de Usuario</h2>
+            <div class="form-card registro-card">
+                <div class="form-header">
+                    <h3>Únete a VetConnect</h3>
+                    <p>Regístrate para acceder a nuestros servicios veterinarios con IA</p>
+                </div>
+                <form id="registroForm" class="registro-form">
+                    <div class="form-group">
+                        <label>👤 Nombre Completo:</label>
+                        <input type="text" id="nombreRegistro" placeholder="Ingresa tu nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>📧 Email:</label>
+                        <input type="email" id="emailRegistro" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>📱 Teléfono:</label>
+                        <input type="tel" id="telefonoRegistro" placeholder="+51 XXX XXX XXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label>🔒 Contraseña:</label>
+                        <input type="password" id="passwordRegistro" placeholder="Crea una contraseña segura" required>
+                    </div>
+                    <button type="submit" class="btn-primary registro-btn">🚀 Crear Cuenta</button>
+                </form>
+                <div id="registroResult" class="result-box"></div>
+                <p class="info-text">¿Ya tienes cuenta? <a href="#" onclick="showSection('diagnostico')">Iniciar Chat IA</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diagnóstico con IA - Chat Interface -->
+    <section id="diagnostico" class="section">
+        <div class="container">
+            <h2>🤖 Chat con IA Veterinaria</h2>
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Hola! Soy tu asistente veterinario con IA. Cuéntame sobre tu mascota y sube una foto de cualquier síntoma para que pueda ayudarte.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <form id="diagnosticoForm">
+                        <div class="chat-input-group">
+                            <input type="text" id="mascotaDiag" placeholder="Nombre de tu mascota..." required>
+                            <select id="especieMascota" required>
+                                <option value="">Especie de tu mascota...</option>
+                                <option value="perro">Perro</option>
+                                <option value="gato">Gato</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                            <select id="areaAfectada" required>
+                                <option value="">Área afectada...</option>
+                                <option value="piel">Piel</option>
+                                <option value="ojos">Ojos</option>
+                                <option value="boca">Cavidad Oral</option>
+                                <option value="extremidades">Extremidades</option>
+                            </select>
+                        </div>
+                        <div class="chat-input-group">
+                            <label>Especie: <span id="especieDisplay"></span></label>
+                        </div>
+                        <div class="chat-input-group">
+                            <input type="file" id="imagenSintoma" accept="image/*" required>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+                        <div class="chat-input-group">
+                            <textarea id="descripcionDiag" placeholder="Describe los síntomas..." rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary chat-send-btn">Enviar a IA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Mi Cuenta -->
+    <section id="cuenta" class="section">
+        <div class="container">
+            <h2>👤 Mi Cuenta</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('perfil')">Perfil</button>
+                <button class="tab-btn" onclick="showTab('suscripcion-tab')">Suscripción</button>
+                <button class="tab-btn" onclick="showTab('configuracion')">Configuración</button>
+            </div>
+            <div id="perfil" class="tab-content active">
+                <div class="form-card">
+                    <h3>Perfil de Usuario</h3>
+                    <form id="perfilForm">
+                        <div class="form-group">
+                            <label>Nombre Completo:</label>
+                            <input type="text" id="nombreUsuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="emailUsuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono:</label>
+                            <input type="tel" id="telefonoUsuario" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Actualizar Perfil</button>
+                    </form>
+                    <div id="perfilResult" class="result-box"></div>
+                </div>
+            </div>
+            <div id="suscripcion-tab" class="tab-content">
+                <div class="form-card">
+                    <h3>Estado de Suscripción</h3>
+                    <p>Plan Actual: Básico</p>
+                    <p>Próxima Renovación: 15/12/2024</p>
+                </div>
+                <div class="subscription-plans">
+                    <div class="plan-card">
+                        <h3>Básico</h3>
+                        <p class="price">S/ 29.90/mes</p>
+                        <ul>
+                            <li>Chat con IA</li>
+                            <li>30 Consultas</li>
+                            <li>Historial Básico</li>
+                        </ul>
+                        <button class="btn-primary">Seleccionar</button>
+                    </div>
+                    <div class="plan-card popular">
+                        <h3>Intermedio</h3>
+                        <p class="price">S/ 59.90/mes</p>
+                        <ul>
+                            <li>Todo lo del Básico</li>
+                            <li>Consultas Ilimitadas</li>
+                            <li>Análisis Avanzados</li>
+                            <li>Soporte Prioritario</li>
+                        </ul>
+                        <button class="btn-primary">Seleccionar</button>
+                    </div>
+                    <div class="plan-card">
+                        <h3>Avanzado</h3>
+                        <p class="price">S/ 99.90/mes</p>
+                        <ul>
+                            <li>Todo lo del Intermedio</li>
+                            <li>Emergencias 24/7</li>
+                            <li>Reportes Detallados</li>
+                            <li>Acceso API</li>
+                        </ul>
+                        <button class="btn-primary">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="configuracion" class="tab-content">
+                <div class="form-card">
+                    <h3>Configuración</h3>
+                    <form id="configForm">
+                        <div class="form-group">
+                            <label>Notificaciones:</label>
+                            <select id="notificaciones">
+                                <option value="si">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Idioma:</label>
+                            <select id="idioma">
+                                <option value="es">Español</option>
+                                <option value="en">Inglés</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Guardar Configuración</button>
+                    </form>
+                    <div id="configResult" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Suscripción -->
+    <section id="suscripcion" class="section">
+        <div class="container">
+            <h2>💳 Suscripción</h2>
+            <div class="subscription-plans">
+                <div class="plan-card">
+                    <h3>Básico</h3>
+                    <p class="price">S/ 29.90/mes</p>
+                    <ul>
+                        <li>Chat con IA</li>
+                        <li>30 Consultas</li>
+                        <li>Historial Básico</li>
+                    </ul>
+                    <button class="btn-primary">Seleccionar</button>
+                </div>
+                <div class="plan-card popular">
+                    <h3>Intermedio</h3>
+                    <p class="price">S/ 59.90/mes</p>
+                    <ul>
+                        <li>Todo lo del Básico</li>
+                        <li>Consultas Ilimitadas</li>
+                        <li>Análisis Avanzados</li>
+                        <li>Soporte Prioritario</li>
+                    </ul>
+                    <button class="btn-primary">Seleccionar</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Avanzado</h3>
+                    <p class="price">S/ 99.90/mes</p>
+                    <ul>
+                        <li>Todo lo del Intermedio</li>
+                        <li>Emergencias 24/7</li>
+                        <li>Reportes Detallados</li>
+                        <li>Acceso API</li>
+                    </ul>
+                    <button class="btn-primary">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mi Mascota -->
+    <section id="mascota" class="section">
+        <div class="container">
+            <h2>🐾 Mi Mascota</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('perfilMascota')">Perfil</button>
+                <button class="tab-btn" onclick="showTab('historialMascota')">Historial</button>
+            </div>
+            <div id="perfilMascota" class="tab-content active">
+                <div class="form-card">
+                    <h3>Perfil de la Mascota</h3>
+                    <form id="mascotaForm">
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" id="nombreMascotaPerfil" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Especie:</label>
+                            <select id="especieMascota" required>
+                                <option value="perro">Perro</option>
+                                <option value="gato">Gato</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Raza:</label>
+                            <input type="text" id="razaMascota">
+                        </div>
+                        <div class="form-group">
+                            <label>Edad:</label>
+                            <input type="number" id="edadMascota">
+                        </div>
+                        <button type="submit" class="btn-primary">Actualizar Perfil</button>
+                    </form>
+                    <div id="mascotaResult" class="result-box"></div>
+                </div>
+            </div>
+            <div id="historialMascota" class="tab-content">
+                <div class="historial-list">
+                    <p class="info-text">Historial de tu mascota aparecerá aquí</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="section">
+        <div class="container">
+            <h2>🔬 Servicios Veterinarios</h2>
+            <p>Ofrecemos una amplia gama de servicios veterinarios avanzados para el cuidado integral de tu mascota, incluyendo análisis clínicos, estudios diagnósticos, radiografías, ecografías y análisis de orina.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Análisis de Sangre</h3>
+                    <p>Diagnóstico completo de parámetros sanguíneos</p>
+                    <button class="btn-primary">Solicitar</button>
+                </div>
+                <div class="service-card">
+                    <h3>Radiografías</h3>
+                    <p>Imágenes detalladas para diagnóstico óseo</p>
+                    <button class="btn-primary">Solicitar</button>
+                </div>
+                <div class="service-card">
+                    <h3>Ecografías</h3>
+                    <p>Estudios internos no invasivos</p>
+                    <button class="btn-primary">Solicitar</button>
+                </div>
+                <div class="service-card">
+                    <h3>Análisis de Orina</h3>
+                    <p>Evaluación renal y metabólica</p>
+                    <button class="btn-primary">Solicitar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="section">
+        <div class="container">
+            <div class="form-card contacto-card">
+                <p><strong>Contacto:</strong> info@vetconnect.com</p>
+                <p class="copyright">© 2025 VetConnect - Contacto</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
